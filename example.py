@@ -1,0 +1,4 @@
+import gmo
+
+
+gmo.gmoGetMargin()
