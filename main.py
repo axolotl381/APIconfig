@@ -1,9 +1,23 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+from typing import List
 import datetime
 
 import gmo
 
 app = FastAPI()
+
+
+class OrderParam(BaseModel):
+    Symbol:str
+    Side:str
+    Price:str
+    Size:str
+
+class Item(BaseModel):
+    name:str
+    price:int
+
 
 
 @app.get("/")
@@ -37,3 +51,12 @@ async def getTradingVolume():
 async def getOrderInfo(orderId:int):
     result = gmo.gmoGetOrderInfo(orderId)
     return result
+
+@app.post("/gmo/order")
+async def postOrder(orderParam:OrderParam):
+    result = gmo.gmoPostOrder(orderParam.Symbol,orderParam.Side,orderParam.Price,orderParam.Size)
+    return result
+
+@app.post("/test/post")
+async def users(item:Item):
+    return item
