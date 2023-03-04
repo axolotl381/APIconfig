@@ -52,6 +52,8 @@ async def getOrderInfo(orderId:int):
     result = gmo.gmoGetOrderInfo(orderId)
     return result
 
+# example curl cli with json param.
+# curl -X POST -H "accept: application/json" -H "Content-Type: application/json"  -d '{"Symbol":"XRP", "Side":"BUY","Price":"48","Size":"1"}' http://u-pa.mydns.jp/api/gmo/order
 @app.post("/gmo/order")
 async def postOrder(orderParam:OrderParam):
     result = gmo.gmoPostOrder(orderParam.Symbol,orderParam.Side,orderParam.Price,orderParam.Size)
