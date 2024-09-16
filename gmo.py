@@ -120,8 +120,39 @@ def gmoPostOrder(symbol:str,side:str,price:str,size:str):
             orderId =  res.json()["data"]
     else:
             orderId = status
-    return { "orderId": orderId }                
+    return { "orderId": orderId }
 
+def gmoPostCancelOrder(Id:int):
+    apiKey    = API_KEY
+    secretKey = SECRET_KEY
+
+    orderId = str(Id)
+
+    timestamp = '{0}000'.format(int(time.mktime(datetime.now().timetuple())))
+    method    = 'GET'
+    endPoint  = 'https://api.coin.z.com/private'
+    path      = '/v1/cancelOrder'
+
+    reqBody = {
+            "orderId": orderId
+    }
+
+    text = timestamp + method + path + json.dumps(reqBody)
+    sign = hmac.new(bytes(secretKey.encode('ascii')), bytes(text.encode('ascii')), hashlib.sha256).hexdigest()
+
+    headers = {
+        "API-KEY": apiKey,
+        "API-TIMESTAMP": timestamp,
+        "API-SIGN": sign
+    }
+    
+    orderId = 0
+    status = res.json()["status"]
+    if status == 0:
+            orderId =  res.json()["data"]
+    else:
+            orderId = status
+    return { "orderId": orderId }
 
 
 
