@@ -129,7 +129,7 @@ def gmoPostCancelOrder(Id:int):
     orderId = str(Id)
 
     timestamp = '{0}000'.format(int(time.mktime(datetime.now().timetuple())))
-    method    = 'GET'
+    method    = 'POST'
     endPoint  = 'https://api.coin.z.com/private'
     path      = '/v1/cancelOrder'
 
