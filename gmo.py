@@ -130,11 +130,17 @@ def gmoPostCancelOrder(Id:int):
     method    = 'POST'
     endPoint  = 'https://api.coin.z.com/private'
     path      = '/v1/cancelOrder'
+<<<<<<< HEAD
 
     reqBody = {
             "orderId": Id
     }
 
+=======
+    reqBody = {
+            "orderId": Id
+    }
+>>>>>>> dev
     text = timestamp + method + path + json.dumps(reqBody)
     sign = hmac.new(bytes(secretKey.encode('ascii')), bytes(text.encode('ascii')), hashlib.sha256).hexdigest()
 
@@ -143,6 +149,7 @@ def gmoPostCancelOrder(Id:int):
         "API-TIMESTAMP": timestamp,
         "API-SIGN": sign
     }
+<<<<<<< HEAD
     
     orderId = 0
     status = res.json()["status"]
@@ -150,6 +157,15 @@ def gmoPostCancelOrder(Id:int):
     return { "result": status,
              "responsetime":responsetime
             }
+=======
+
+    res = requests.post(endPoint + path, headers=headers, data=json.dumps(reqBody))
+    print (json.dumps(res.json(), indent=2))
+    status = res.json()["status"]
+    return status
+>>>>>>> dev
 
 
 
+def gmoTestPost(id:int):
+    return ss
